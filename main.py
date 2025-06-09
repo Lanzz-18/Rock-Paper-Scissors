@@ -1,6 +1,4 @@
-# add error handling
-
-import random
+import random # For random selection of items
 
 # Creating function to choose item randomly
 def PCSelectOption(array):
@@ -12,10 +10,13 @@ def UserSelectOption(array):
     count = 1
     while True:
         try:
+            # Displaying choices
             for item in array:
                 print(f'{count}. {item}')
                 count += 1
             choice = int(input("Select item: "))
+            print()
+            # Making sure user inputs one of  1-3
             if(1 <= choice <= 3):
                 return array[choice-1]
             else:
@@ -29,24 +30,38 @@ def ScoreManager(user, computer):
     # Updating score and returning
     userScore += scoreKeeper[user][options.index(computer)]
     computerScore += scoreKeeper[computer][options.index(user)]
+    print("Scores💯\n---------------------------------------------")
     print(f'Your Score: {userScore}\nComputer Score: {computerScore}')
+    print("---------------------------------------------\n")
 
 # Making the array and score
-options = ["Rock", "Paper", "Scissors"]
+options = ["Rock 🪨", "Paper 📃", "Scissors ✂️"]
 userScore = 0
 computerScore = 0
 
 # Order of items = Rock, Paper, Scissors
-scoreKeeper = {"Rock" : [0, 0, 1],
-            "Paper": [1, 0, 0],
-            "Scissors": [0, 1, 0]}
+scoreKeeper = {"Rock 🪨" : [0, 0, 1],
+            "Paper 📃": [1, 0, 0],
+            "Scissors ✂️": [0, 1, 0]}
 
+# Setting the condition for the main loop
 endGame = False
+
+# Displaying intro to game
+line = "---------------------------------------------"
+text = "WELCOME TO ROCK-PAPER-SCISSORS"
+padding = (len(line) - len(text)) // 2
+print(line)
+print((" "*padding) + text)
+print(line)
+
 while(not endGame):
     # Choices
     userChoice = UserSelectOption(options)
     computerChoice = PCSelectOption(options)
+    print("Choices⬇️\n---------------------------------------------")
     print(f'Your choice: {userChoice}\nComputer Choice: {computerChoice}')
+    print("---------------------------------------------\n")
     ScoreManager(userChoice, computerChoice)
     while True:
         endGame = input("Do you want to continue(y/n)? ")
