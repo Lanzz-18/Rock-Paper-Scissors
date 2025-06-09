@@ -1,4 +1,3 @@
-# fix the choices gettting duplicate bug
 # add error handling
 
 import random
@@ -11,10 +10,18 @@ def PCSelectOption(array):
 # Function for user to select item
 def UserSelectOption(array):
     count = 1
-    for item in array:
-        print(f'{count}. {item}')
-        count += 1
-    return array[(int(input("Select item: ")))-1]
+    while True:
+        try:
+            for item in array:
+                print(f'{count}. {item}')
+                count += 1
+            choice = int(input("Select item: "))
+            if(1 <= choice <= 3):
+                return array[choice-1]
+            else:
+                raise ValueError("Enter between 1-3")
+        except ValueError as e:
+            print(e)
 
 # Displaying and updating scores
 def ScoreManager(user, computer):
@@ -41,4 +48,14 @@ while(not endGame):
     computerChoice = PCSelectOption(options)
     print(f'Your choice: {userChoice}\nComputer Choice: {computerChoice}')
     ScoreManager(userChoice, computerChoice)
-    endGame = True if input("Do you want to continue?") == "no" else False
+    while True:
+        endGame = input("Do you want to continue(y/n)? ")
+        if(endGame == "y"):
+            endGame = False
+            break
+        elif(endGame == "n"):
+            print("Thank you for playing\nHave a nice day :)")
+            endGame = True
+            break
+        else:
+            print("Invalid input")
